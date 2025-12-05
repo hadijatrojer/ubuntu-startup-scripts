@@ -1,0 +1,45 @@
+# Login-Scoped cloud services
+
+This directory contains the helper scripts and systemd user units used to start
+my Google Drive mount (via rclone) and a separate personal Dropbox instance.
+Both services should run from `$HOME` and only while I'm logged in, so they use
+user-level systemd units instead of system services.
+
+## Files
+
+- `gdrive.sh` – mounts the `GDrive:` rclone remote into `~/GDrive`.
+- `sync-personal-dropbox.sh` – starts Dropbox with `HOME` redirected to
+  `~/.dropbox-personal`, letting it coexist with any other Dropbox installs.
+- `gdrive.service` – user unit wrapper for `gdrive.sh`.
+- `dropbox-personal.service` – user unit wrapper for
+  `sync-personal-dropbox.sh`.
+
+## Installation
+
+1. Copy the unit files into the user unit directory (create it if needed):
+   ```bash
+   install -Dm644 gdrive.service dropbox-personal.service \
+     ~/.config/systemd/user/
+   ```
+2. Tell systemd about the new units:
+   ```bash
+   systemctl --user daemon-reload
+   ```
+3. Enable and start both services for the current user session:
+   ```bash
+   systemctl --user enable --now gdrive.service dropbox-personal.service
+   ```
+
+The services are tied to `graphical-session.target`, so they will automatically
+start whenever you log in (TTY or GUI) and stop when you log out.
+
+## Verifying/Debugging
+
+- Check status:
+  ```bash
+  systemctl --user status gdrive.service dropbox-personal.service
+  ```
+- View logs:
+  ```bash
+  journalctl --user -u gdrive.service -u dropbox-personal.service -f
+  ```

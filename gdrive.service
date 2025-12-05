@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount rclone GDrive remote for this login session
+After=graphical-session.target network-online.target
+Wants=network-online.target
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h
+Environment=HOME=%h
+ExecStart=%h/scripts/gdrive.sh
+
+[Install]
+WantedBy=default.target
