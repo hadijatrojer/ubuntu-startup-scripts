@@ -33,8 +33,9 @@ user-level systemd units instead of system services.
    systemctl --user enable --now gdrive.service dropbox-personal.service
    ```
 
-The services are tied to `graphical-session.target`, so they will automatically
-start whenever you log in (TTY or GUI) and stop when you log out.
+The services are tied to `graphical-session.target`/`xdg-desktop-autostart.target`,
+so they will start only after GNOME finishes bringing up the desktop (ensuring the
+Dropbox tray icon can appear) and will stop automatically when you log out.
 
 ## Verifying/Debugging
 
