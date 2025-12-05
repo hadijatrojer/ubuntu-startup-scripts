@@ -7,9 +7,12 @@ user-level systemd units instead of system services.
 
 ## Files
 
-- `gdrive.sh` – mounts the `GDrive:` rclone remote into `~/GDrive`.
+- `gdrive.sh` – mounts the `GDrive:` rclone remote into `~/GDrive`
+  and prepends the mise shims directory to `PATH` so the managed
+  `rclone` binary is available even from systemd.
 - `sync-personal-dropbox.sh` – starts Dropbox with `HOME` redirected to
-  `~/.dropbox-personal`, letting it coexist with any other Dropbox installs.
+  `~/.dropbox-personal`, ensuring the directory exists and failing fast if the
+  Dropbox CLI is missing.
 - `gdrive.service` – user unit wrapper for `gdrive.sh`.
 - `dropbox-personal.service` – user unit wrapper for
   `sync-personal-dropbox.sh`.
