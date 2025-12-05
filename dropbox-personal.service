@@ -5,8 +5,6 @@ Wants=network-online.target
 PartOf=graphical-session.target
 
 [Service]
-Type=oneshot
-RemainAfterExit=yes
 WorkingDirectory=%h
 Environment=HOME=%h
 ExecStart=%h/scripts/sync-personal-dropbox.sh
