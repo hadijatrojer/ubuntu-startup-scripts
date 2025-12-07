@@ -21,8 +21,7 @@ user-level systemd units instead of system services.
 
 1. Copy the unit files into the user unit directory (create it if needed):
    ```bash
-   install -Dm644 gdrive.service dropbox-personal.service \
-     ~/.config/systemd/user/
+   install -Dm644 gdrive.service dropbox-personal.service dropbox-work.service ~/.config/systemd/user/
    ```
 2. Tell systemd about the new units:
    ```bash
@@ -30,7 +29,7 @@ user-level systemd units instead of system services.
    ```
 3. Enable and start both services for the current user session:
    ```bash
-   systemctl --user enable --now gdrive.service dropbox-personal.service
+   systemctl --user enable --now gdrive.service dropbox-personal.service dropbox-work.service
    ```
 
 The services are tied to `graphical-session.target`/`xdg-desktop-autostart.target`,
@@ -41,9 +40,9 @@ Dropbox tray icon can appear) and will stop automatically when you log out.
 
 - Check status:
   ```bash
-  systemctl --user status gdrive.service dropbox-personal.service
+  systemctl --user status gdrive.service dropbox-personal.service dropbox-work.service
   ```
 - View logs:
   ```bash
-  journalctl --user -u gdrive.service -u dropbox-personal.service -f
+  journalctl --user -u gdrive.service -u dropbox-personal.service -u dropbox-work.service -f
   ```

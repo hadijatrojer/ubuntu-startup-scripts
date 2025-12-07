@@ -1,0 +1,13 @@
+[Unit]
+Description=Start Work Dropbox instance after login
+After=graphical-session.target xdg-desktop-autostart.target network-online.target
+Wants=network-online.target xdg-desktop-autostart.target
+PartOf=graphical-session.target
+
+[Service]
+WorkingDirectory=%h
+Environment=HOME=%h
+ExecStart=%h/scripts/sync-work-dropbox.sh
+
+[Install]
+WantedBy=graphical-session.target
