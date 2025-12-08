@@ -3,11 +3,15 @@ Description=Mount rclone GDrive remote for this login session
 After=graphical-session.target xdg-desktop-autostart.target network-online.target
 Wants=network-online.target xdg-desktop-autostart.target
 PartOf=graphical-session.target
+StartLimitIntervalSec=1min
+StartLimitBurst=3
 
 [Service]
 WorkingDirectory=%h
 Environment=HOME=%h
 ExecStart=%h/scripts/rclone-mount.sh "GDrive:" "GDrive"
+Restart=on-failure
+RestartSec=10s
 
 [Install]
 WantedBy=graphical-session.target
