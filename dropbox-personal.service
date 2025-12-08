@@ -1,5 +1,5 @@
 [Unit]
-Description=Start personal Dropbox instance after login
+Description=Mount personal Dropbox remote after login
 After=graphical-session.target xdg-desktop-autostart.target network-online.target
 Wants=network-online.target xdg-desktop-autostart.target
 PartOf=graphical-session.target
@@ -7,7 +7,7 @@ PartOf=graphical-session.target
 [Service]
 WorkingDirectory=%h
 Environment=HOME=%h
-ExecStart=%h/scripts/sync-personal-dropbox.sh
+ExecStart=%h/scripts/rclone-mount.sh "Personal Dropbox:" "Personal Dropbox"
 
 [Install]
 WantedBy=graphical-session.target

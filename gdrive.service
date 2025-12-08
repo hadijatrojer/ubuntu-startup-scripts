@@ -7,7 +7,7 @@ PartOf=graphical-session.target
 [Service]
 WorkingDirectory=%h
 Environment=HOME=%h
-ExecStart=%h/scripts/gdrive.sh
+ExecStart=%h/scripts/rclone-mount.sh "GDrive:" "GDrive"
 
 [Install]
 WantedBy=graphical-session.target
